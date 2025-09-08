@@ -29,8 +29,13 @@ class VQARadExperiment(BaseExperiment):
         testset = get_instances("test")
         
         VQA_RadiologyProgram = dspy.ChainOfThought(VQA_Radiology)
-        def metric(example, pred, trace=None) -> int:
-            return quasi_exact_match(example.ground_truth_answer, pred.answer)
+        def metric(example, pred, trace=None):
+            is_correct = quasi_exact_match(example.ground_truth_answer, pred.answer)
+            feedback_text = "Correct prediction." if is_correct else f"Incorrect prediction. Expected: {example.ground_truth_answer}"
+            return dspy.Prediction(
+                score=is_correct,
+                feedback=feedback_text
+            )
         return trainset, testset, VQA_RadiologyProgram, metric
 
 

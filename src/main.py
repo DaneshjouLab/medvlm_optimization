@@ -5,6 +5,7 @@ import logging
 import sys
 from dspy.evaluate import Evaluate
 from dspy.teleprompt import BootstrapFewShotWithRandomSearch, MIPROv2, SIMBA
+from utils.gepa_utils import create_gepa_teleprompter
 
 from experiments.vqa_rad import run_vqa_rad
 from experiments.chexpert import run_chexpert
@@ -76,6 +77,10 @@ def main():
 
     teleprompter = SIMBA(metric=metric)
     compiled_program = teleprompter.compile(program, trainset=trainset, seed=6793115)
+    evaluate_program(compiled_program)
+
+    teleprompter = create_gepa_teleprompter(metric, lm, trainset)
+    compiled_program = teleprompter.compile(program, trainset=trainset, valset=trainset)
     evaluate_program(compiled_program)
 
 

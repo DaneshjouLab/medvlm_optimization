@@ -39,8 +39,16 @@ class DDISkintoneExperiment(BaseExperiment):
         trainset = load_ddi_examples(str(PATHS["ddi"]["train"]), str(PATHS["ddi"]["images"]))
         
         DDISkinToneProgram = dspy.ChainOfThought(DDISkinTone)
-        def metric(example, pred, trace=None) -> int:
-            return exact_match(str(example.ground_truth_skin_tone), str(pred.skin_tone))
+        def metric(example, pred, trace=None):
+            is_correct = example.ground_truth_disease in pred.diagnosis_choices[:3]
+            if is_correct:
+                feedback_text = "Correct prediction."
+            else:
+                feedback_text = f"Incorrect prediction. Expected: {example.ground_truth_disease} in one of the three predicted diagnoses."
+            return dspy.Prediction(
+                score=is_correct,
+                feedback=feedback_text
+            )
         return trainset, testset, DDISkinToneProgram, metric
 
 

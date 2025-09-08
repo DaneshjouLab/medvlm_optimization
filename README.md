@@ -2,7 +2,6 @@
 
 This framework provides a comprehensive evaluation and optimization system for medical vision-language models using DSPy. It includes evaluation metrics, multiple medical datasets, and optimization strategies.
 
-## Features
 
 - **5 Medical VLM Experiments**:
   - VQA RAD: Visual Question Answering on Radiology images
@@ -11,12 +10,11 @@ This framework provides a comprehensive evaluation and optimization system for m
   - DDI Skintone: Skin tone classification
   - Gastrovision: Gastroenterology endoscopy classification
 
-- **40+ Evaluation Metrics**: Including exact match, F1 score, BLEU, ROUGE, CIDEr, WER, and more
-
-- **3 Optimization Strategies**:
+- **4 DSPy Optimization Strategies**:
   - BootstrapFewShotWithRandomSearch
   - MIPROv2
   - SIMBA
+  - GEPA
 
 ## Installation
 

@@ -51,9 +51,15 @@ class GastrovisionExperiment(BaseExperiment):
         GastrovisionProgram = dspy.ChainOfThought(Gastrovision)
         def metric(example, pred, trace=None):
             score = f1_score(pred.diagnosis_choice, example.ground_truth_diagnosis_choice)
-            if trace is not None:
-                return score > 0.8
-            return score
+            is_correct = score > 0.8 if trace is not None else score == 1.0
+            if is_correct:
+                feedback_text = "Correct prediction."
+            else:
+                feedback_text = f"Incorrect prediction. Expected: {example.ground_truth_diagnosis_choice}"
+            return dspy.Prediction(
+                score=is_correct,
+                feedback=feedback_text
+            )
         return trainset, testset, GastrovisionProgram, metric
 
 
