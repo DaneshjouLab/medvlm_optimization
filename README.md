@@ -4,11 +4,16 @@ This framework provides a comprehensive evaluation and optimization system for m
 
 
 - **5 Medical VLM Experiments**:
-  - VQA RAD: Visual Question Answering on Radiology images
-  - CheXpert: Chest X-ray classification
-  - DDI Disease: Dermatology disease diagnosis
-  - DDI Skintone: Skin tone classification
-  - Gastrovision: Gastroenterology endoscopy classification
+  - [VQA RAD](https://huggingface.co/datasets/flaviagiammarino/vqa-rad): Visual Question Answering on Radiology images
+  - [Gastrovision](https://github.com/DebeshJha/GastroVision): Gastroenterology endoscopy classification
+  - [CheXpert](https://aimi.stanford.edu/datasets/chexpert-chest-x-rays): Chest X-ray classification
+  - [DDI](https://ddi-dataset.github.io) Disease: Dermatology disease diagnosis
+  - [DDI](https://ddi-dataset.github.io) Skintone: Skin tone classification
+
+  All datasets analyzed in this study are publicly available. No proprietary or restricted datasets are used.
+
+
+
 
 - **4 DSPy Optimization Strategies**:
   - BootstrapFewShotWithRandomSearch
@@ -90,3 +95,7 @@ The framework expects data in the following structure:
 - DDI: CSV metadata files and image directories
 - Gastrovision: CSV files with base64-encoded images
 - VQA RAD: Loads from HuggingFace datasets
+
+
+## License
+This project is licensed under the MIT License.
