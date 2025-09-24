@@ -13,9 +13,7 @@ This framework provides a comprehensive evaluation and optimization system for m
   All datasets analyzed in this study are publicly available. No proprietary or restricted datasets are used.
 
 
-
-
-- **4 DSPy Optimization Strategies**:
+- **4 [DSPy](https://dspy.ai) Optimization Strategies**:
   - BootstrapFewShotWithRandomSearch
   - MIPROv2
   - SIMBA
