@@ -16,6 +16,10 @@ This framework provides a comprehensive evaluation and optimization system for m
   - SIMBA
   - GEPA
 
+## Framework Overview
+
+![Medical VLM Optimization Framework](docs/central_fig_visionDSPy.png)
+
 ## Installation
 
 ```bash
