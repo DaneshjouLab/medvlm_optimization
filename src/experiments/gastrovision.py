@@ -1,3 +1,9 @@
+# This source file is part of the Daneshjou Lab project
+#
+# SPDX-FileCopyrightText: 2025 Stanford University and the project authors (see AUTHORS.md)
+#
+# SPDX-License-Identifier: MIT
+
 import dspy
 import pandas as pd
 from PIL import Image
@@ -44,10 +50,10 @@ class GastrovisionExperiment(BaseExperiment):
                 ).with_inputs("endoscopy_procedure_image", "choices")
                 examples.append(ex)
             return examples
-        
+
         trainset = load_dspy_examples(str(PATHS["gastrovision"]["train"]))
         testset = load_dspy_examples(str(PATHS["gastrovision"]["test"]))
-        
+
         GastrovisionProgram = dspy.ChainOfThought(Gastrovision)
         def metric(example, pred, trace=None):
             score = f1_score(pred.diagnosis_choice, example.ground_truth_diagnosis_choice)
@@ -65,4 +71,4 @@ class GastrovisionExperiment(BaseExperiment):
 
 def run_gastrovision():
     experiment = GastrovisionExperiment()
-    return experiment.run() 
+    return experiment.run()

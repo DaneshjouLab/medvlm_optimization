@@ -1,3 +1,9 @@
+# This source file is part of the Daneshjou Lab project
+#
+# SPDX-FileCopyrightText: 2025 Stanford University and the project authors (see AUTHORS.md)
+#
+# SPDX-License-Identifier: MIT
+
 import re
 import string
 from nltk.metrics.scores import f_measure
@@ -49,4 +55,4 @@ def f1_score(gold: str, pred: str) -> float:
     if ret is None:
         return 0.0
 
-    return ret 
+    return ret

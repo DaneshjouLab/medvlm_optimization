@@ -1,3 +1,9 @@
+# This source file is part of the Daneshjou Lab project
+#
+# SPDX-FileCopyrightText: 2025 Stanford University and the project authors (see AUTHORS.md)
+#
+# SPDX-License-Identifier: MIT
+
 import dspy
 from dspy.teleprompt import GEPA
 
@@ -33,11 +39,11 @@ Follow these directions to produce instructions that enable any user—without a
     current_instructions: str = dspy.InputField(
         desc="The current (previous) version of the instruction document that requires improvement."
     )
-    
+
     examples_summary: str = dspy.InputField(
         desc="User-generated example outputs and corresponding feedback, indicating recurring mistakes, misunderstandings, and any confusion about previous instructions."
     )
-    
+
     improved_instructions: str = dspy.OutputField(
         desc="A comprehensive, self-contained, and clear instruction document that resolves all identified user issues, defines all necessary concepts, provides explicit examples (correct and incorrect with explanations), specifies all requirements, and incorporates all provided domain and feedback-informed guidance."
     )
@@ -45,17 +51,17 @@ Follow these directions to produce instructions that enable any user—without a
 
 class ImageInstructionProposer:
     def __call__(
-        self, 
+        self,
         candidate: dict[str, str],
-        reflective_dataset: dict[str, list[dict]], 
+        reflective_dataset: dict[str, list[dict]],
         components_to_update: list[str]
     ) -> dict[str, str]:
         new_texts = {}
-        
+
         for name in components_to_update:
             current_instruction = candidate[name]
             dataset_with_feedback = reflective_dataset[name]
-            
+
             formatted_samples = "\n".join([
                 f"Input: {item.get('inputs', '')}\n"
                 f"Output: {item.get('outputs', '')}\n"
@@ -68,9 +74,9 @@ class ImageInstructionProposer:
                 current_instructions=current_instruction,
                 examples_summary=formatted_samples
             )
-            
+
             new_texts[name] = result.improved_instructions
-        
+
         return new_texts
 
 

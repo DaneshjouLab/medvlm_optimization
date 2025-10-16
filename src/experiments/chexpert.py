@@ -1,3 +1,9 @@
+# This source file is part of the Daneshjou Lab project
+#
+# SPDX-FileCopyrightText: 2025 Stanford University and the project authors (see AUTHORS.md)
+#
+# SPDX-License-Identifier: MIT
+
 import dspy
 import pandas as pd
 from PIL import Image
@@ -43,7 +49,7 @@ class ChexpertExperiment(BaseExperiment):
             return examples
         trainset = load_dspy_examples(str(PATHS["chexpert"]["train"]))
         testset = load_dspy_examples(str(PATHS["chexpert"]["test"]))
-        
+
         ChexpertProgram = dspy.ChainOfThought(Chexpert)
         def metric(example, pred, trace=None):
             score = f1_score(pred.diagnosis_choice, example.ground_truth_diagnosis_choice)
@@ -61,4 +67,4 @@ class ChexpertExperiment(BaseExperiment):
 
 def run_chexpert():
     experiment = ChexpertExperiment()
-    return experiment.run() 
+    return experiment.run()

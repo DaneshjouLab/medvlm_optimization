@@ -1,3 +1,9 @@
+# This source file is part of the Daneshjou Lab project
+#
+# SPDX-FileCopyrightText: 2025 Stanford University and the project authors (see AUTHORS.md)
+#
+# SPDX-License-Identifier: MIT
+
 import dspy
 import pandas as pd
 from PIL import Image
@@ -57,10 +63,10 @@ class DDIDiseaseExperiment(BaseExperiment):
                 ).with_inputs("skin_image", "choices")
                 examples.append(ex)
             return examples
-        
+
         testset = load_ddi_examples(str(PATHS["ddi"]["test"]), str(PATHS["ddi"]["images"]))
         trainset = load_ddi_examples(str(PATHS["ddi"]["train"]), str(PATHS["ddi"]["images"]))
-        
+
         DDISkinToneProgram = dspy.ChainOfThought(DDISkinTone)
         def metric(example, pred, trace=None):
             is_correct = exact_match(str(example.ground_truth_skin_tone), str(pred.skin_tone))
@@ -77,4 +83,4 @@ class DDIDiseaseExperiment(BaseExperiment):
 
 def run_ddi_disease():
     experiment = DDIDiseaseExperiment()
-    return experiment.run() 
+    return experiment.run()

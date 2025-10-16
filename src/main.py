@@ -1,3 +1,55 @@
+# This source file is part of the Daneshjou Lab project
+#
+# SPDX-FileCopyrightText: 2025 Stanford University and the project authors (see AUTHORS.md)
+#
+# SPDX-License-Identifier: MIT
+
+
+"""
+Medical Vision-Language Model Optimization Framework
+
+This module serves as the main entry point for a comprehensive evaluation and optimization
+system for medical vision-language models using DSPy. It provides a unified interface
+for running experiments across multiple medical datasets and applying various optimization
+strategies to improve model performance.
+
+The framework supports five medical VLM experiments:
+    - VQA RAD: Visual Question Answering on Radiology images
+    - CheXpert: Chest X-ray classification
+    - DDI Disease: Dermatology disease diagnosis
+    - DDI Skintone: Skin tone classification
+    - Gastrovision: Gastroenterology endoscopy classification
+
+Four DSPy optimization strategies are applied to each experiment:
+    1. BootstrapFewShotWithRandomSearch: Few-shot learning with random search
+    2. MIPROv2: Multi-stage Instruction Proposal and Refinement Optimization
+    3. SIMBA: Similarity-Based Few-Shot Learning
+    4. GEPA: Gradient-free Evolution of Prompts with Adaptation
+
+Usage:
+    python main.py --experiment vqa_rad --model "your-model" --api_base "url" --api_key "key"
+
+Arguments:
+    --experiment: Choice of medical experiment to run
+    --model: Language model identifier (e.g., "gpt-4o", "claude-3")
+    --api_base: Base URL for the API endpoint
+    --api_key: Authentication key for the API
+    --cache: Enable/disable caching (default: True)
+    --cache_dir: Custom cache directory path (optional)
+
+The script automatically:
+    - Configures DSPy with the specified language model
+    - Loads the appropriate dataset and evaluation metrics
+    - Runs baseline evaluation on the initial program
+    - Applies each optimization strategy sequentially
+    - Evaluates and logs performance improvements
+    - Saves results with comprehensive logging
+
+All results are logged to timestamped files in the outputs/logs/ directory,
+enabling reproducible experiments and performance tracking across different
+models and optimization strategies.
+"""
+
 import argparse
 import os
 import dspy
@@ -35,7 +87,7 @@ def main():
     parser.add_argument("--api_key", required=True)
     parser.add_argument("--cache", default=True, type=bool)
     parser.add_argument("--cache_dir", type=str, default=None)
-    
+
     args = parser.parse_args()
 
     model_short = args.model.split("/")[-1]
@@ -85,4 +137,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main() 
+    main()

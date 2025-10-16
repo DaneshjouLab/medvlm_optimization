@@ -1,3 +1,9 @@
+# This source file is part of the Daneshjou Lab project
+#
+# SPDX-FileCopyrightText: 2025 Stanford University and the project authors (see AUTHORS.md)
+#
+# SPDX-License-Identifier: MIT
+
 import dspy
 from datasets import load_dataset
 from .base import BaseExperiment
@@ -27,7 +33,7 @@ class VQARadExperiment(BaseExperiment):
             return [process_example(ex) for ex in dataset]
         trainset = get_instances("train")[:500]
         testset = get_instances("test")
-        
+
         VQA_RadiologyProgram = dspy.ChainOfThought(VQA_Radiology)
         def metric(example, pred, trace=None):
             is_correct = quasi_exact_match(example.ground_truth_answer, pred.answer)
@@ -41,4 +47,4 @@ class VQARadExperiment(BaseExperiment):
 
 def run_vqa_rad():
     experiment = VQARadExperiment()
-    return experiment.run() 
+    return experiment.run()
